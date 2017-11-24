@@ -8,8 +8,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-
-<GridPane alignment="center" hgap="5.0" prefHeight="423.0" prefWidth="504.0" vgap="5.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ru.kpfu.icmit.clientsm.fx.Controller">
+<GridPane alignment="center" hgap="5.0" prefHeight="450.0" prefWidth="493.0" vgap="5.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kpfu.icmit.clientsm.fx.Controller">
    <columnConstraints>
       <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
       <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
@@ -18,11 +17,13 @@
       <ColumnConstraints maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
    </columnConstraints>
    <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
       <RowConstraints />
       <RowConstraints />
-      <RowConstraints />
+      <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
       <RowConstraints maxHeight="40.0" minHeight="26.0" prefHeight="27.0" />
       <RowConstraints />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />
@@ -31,16 +32,16 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="460.0" text="Новые" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3" />
-      <TextArea prefHeight="59.0" prefWidth="453.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="5" />
-      <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="466.0" text="Отправить" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="6" />
-      <ScrollPane prefHeight="197.0" prefWidth="527.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="4">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-        </content>
-      </ScrollPane>
-      <TextField id="textFieldLogin" prefHeight="21.0" prefWidth="123.0" GridPane.columnIndex="2" />
-      <Button id="buttonLogin" mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" text="Войти" GridPane.columnIndex="4" />
-      <PasswordField id="passwordField" GridPane.columnIndex="3" />
+      <Button id="buttonNewMessages" fx:id="buttonNewMessages" mnemonicParsing="false" onAction="#getNewMessage" prefHeight="30.0" prefWidth="460.0" text="Получить новые" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="4" />
+      <TextArea id="textAreaMessage" fx:id="textAreaMessage" prefHeight="62.0" prefWidth="342.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="7" />
+      <Button id="buttonSend" fx:id="buttonSend" mnemonicParsing="false" onAction="#sendMessage" prefHeight="27.0" prefWidth="466.0" text="Отправить" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="8" />
+      <ScrollPane id="scrollPanelNews" fx:id="scrollPanelNews" prefHeight="197.0" prefWidth="527.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="5" />
+      <TextField id="textFieldLogin" fx:id="textFieldLogin" prefHeight="21.0" prefWidth="123.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Button id="buttonLogin" fx:id="buttonLogin" mnemonicParsing="false" onAction="#login" prefHeight="27.0" prefWidth="150.0" text="Войти" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <PasswordField id="passwordField" fx:id="passwordField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <Label id="labelMessage" fx:id="labelMessage" prefHeight="32.0" prefWidth="461.0" text="Введите логин и пароль" GridPane.columnIndex="2" GridPane.columnSpan="3" />
+      <ComboBox id="comboBoxDst" fx:id="comboBoxDst" prefHeight="31.0" prefWidth="469.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+      <Label text="Получатель" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <Hyperlink onAction="#registgration" text="Регистрация" GridPane.columnIndex="4" />
    </children>
 </GridPane>
