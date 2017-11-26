@@ -26,6 +26,7 @@ public class HTTPSender {
      */
     public boolean sendMessage(String message, String requestPath){
         //TODO реализовать
+        
         return true;
     }
 
