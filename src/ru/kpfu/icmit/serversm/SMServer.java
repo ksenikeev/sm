@@ -22,6 +22,7 @@ public class SMServer extends Thread{
     }
     
     public void run(){
+    	String bodyMessage="";
     	// Техническая информация из сокета
 		System.out.println("NEW connection. ThreadId: " + currentThread().getId() +
 			"\nsocket info: "+new Date()+"\n"+
@@ -45,7 +46,7 @@ public class SMServer extends Thread{
 
 				// Если в заголовке есть ключ "Content-Length", то пытаемся прочитать тело
 				if (httpClientHeader.contentLength>0){
-					HTTPReader.readHTTPBody(is,httpClientHeader.contentLength);
+					bodyMessage=HTTPReader.readHTTPBody(is,httpClientHeader.contentLength);
 				}
 
 				String data="";
