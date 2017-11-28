@@ -24,14 +24,20 @@ public class HTTPSender {
      * @param requestPath
      * @return
      */
-    public boolean sendMessage(String message, String requestPath){
+    public ServerResponse sendMessage(String message, String requestPath){
         //TODO реализовать
         
-        return true;
+        return null;
     }
 
     /** Метод для запроса новых сообщений с сервера */
     public List<ClientMessage> getMessages(String message, String requestPath){
+        //TODO реализовать
+        return null;
+    }
+
+    /** Метод для запроса всех сообщений с сервера */
+    public List<ClientMessage> getAllMessages(String message, String requestPath){
         //TODO реализовать
         return null;
     }

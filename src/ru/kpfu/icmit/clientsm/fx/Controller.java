@@ -69,6 +69,8 @@ public class Controller {
     //TODO - реализовать полный функционал
     @FXML
     public void login(){
+
+
         labelMessage.setVisible(false);
         textFieldLogin.setVisible(false);
         passwordField.setVisible(false);

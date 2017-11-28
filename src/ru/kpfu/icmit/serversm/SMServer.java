@@ -54,10 +54,12 @@ public class SMServer extends Thread{
 
 				// Смотрим какой ресурс запросил клиент (из httpClientHeader.resourcePath)
 				if (httpClientHeader.resourcePath.equals("/reguser")){
+
 					//TODO реализовать обработку регистрации
 				} else if (httpClientHeader.resourcePath.equals("/login")){
 					//TODO реализовать обработку аутентификации
 				} else if (httpClientHeader.resourcePath.equals("/sendmsg")){
+
 					//TODO реализовать отправку сообщения
 				} else if (httpClientHeader.resourcePath.equals("/getnewmsg")){
 					//TODO реализовать отправку новых сообщений
