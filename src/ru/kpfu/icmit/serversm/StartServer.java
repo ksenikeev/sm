@@ -11,6 +11,7 @@ public class StartServer {
     public static void main(String args[]){
         try(ServerSocket server = new ServerSocket(3128);){
             System.out.println("server SM is started");
+
             while(true) {
                 // ждём нового подключения, после чего запускаем обработку клиента
                 new SMServer(server.accept());

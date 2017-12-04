@@ -21,7 +21,7 @@ public class SMServer extends Thread{
         start();
     }
     
-    public void run(){
+    public void run()  {
     	String bodyMessage="";
     	// Техническая информация из сокета
 		System.out.println("NEW connection. ThreadId: " + currentThread().getId() +
@@ -58,6 +58,7 @@ public class SMServer extends Thread{
 
 					//TODO реализовать обработку регистрации
 				} else if (httpClientHeader.resourcePath.equals("/login")){
+
 					//TODO реализовать обработку аутентификации
 				} else if (httpClientHeader.resourcePath.equals("/sendmsg")){
 

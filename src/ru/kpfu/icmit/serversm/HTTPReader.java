@@ -19,6 +19,16 @@ public class HTTPReader {
 	 */
 	public static ArrayList<String> readHTTPHeader(InputStream is) {
 		//TODO необходимо реализовать
+		// Здесь тестовая версия
+		String ns="";
+		while (ns!=null && !ns.equals("\r\n")){
+			try {
+				ns = readHeadersNextString(is);
+				System.out.println(ns);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
         return null;
     }
 

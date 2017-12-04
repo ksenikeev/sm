@@ -7,7 +7,7 @@ public class SenderMessage {
 
     public String sendMsg(){
         // 1. Проверка токена пользователя
-        
+
         return null;
     }
 }
