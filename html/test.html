@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(init);
+		function init() {}
+	</script>
+</head>
+<body>
+<script type="text/javascript">
+	function sh(){
+		$.post(
+		 	"http://127.0.0.1:3128/login",
+			$("#ta").val(),
+			function(data){alert(data)},
+			"json"
+	);}
+</script>
+
+<textarea id="ta">
+{"token":"2341324214"}
+</textarea>
+<button type="button"  id="btnsend" onclick="sh();">Отправить тест на сервер</button>
+
+</body>
+</html>
