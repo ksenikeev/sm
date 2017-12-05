@@ -39,7 +39,12 @@ public class HTTPReader {
 	 */
 	public static String readHTTPBody(InputStream is, int bodySize) {
 		//TODO необходимо реализовать
-		return null;
+		byte[] msg = new byte[bodySize];
+		String msg_as_text = new String(msg);
+
+		System.out.println("data from client: "+msg_as_text);
+
+		return msg_as_text;
     }
 
 	/**
