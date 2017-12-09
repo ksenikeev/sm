@@ -1,21 +1,33 @@
+package ru.kpfu.icmit.serversm;
+
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Date;
 
 /**
- * Created by AAVahrusheva on 05.12.2017. 
+ * Created by AAVahrusheva on 05.12.2017.
  */
 public class ResponseServer {
-    public void send(OutputStream OS, String message){
-        String msg="HTTP/1.1 200 OK"+"\r\n"+" Connection: close"+
-                "\r\n"+"Date: Tue Dec 5 14:49:18 MSK 2017"+"\r\n"+
+    public static void send(OutputStream os, String message){
+
+        String msg="HTTP/1.1 200 OK"+"\r\n"+
+                "Connection: close"+"\r\n"+
+                "Date: "+new Date()+"\r\n"+
+                "Access-Control-Allow-Origin: *\r\n"+
                 "Server: ICMIT/0.0.1"+"\r\n";
-        if (0 < message.length()){
-            msg=msg+"Content-Type: application/json"+"\r\n"+"Content-Lenght: "+ message.getBytes().length+"\r\n"+"\r\n"+message;
-            try {
-                OS.write(msg.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (message.length()>0){
+            msg=msg+"Content-Type: application/json"+"\r\n"+
+                    "Content-Lenght: "+ message.getBytes().length+"\r\n"+
+                    "\r\n"+
+                    message;
+        } else{
+            msg=msg+"\r\n";
         }
+        try {
+            os.write(msg.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Response: "+msg);
     }
 }

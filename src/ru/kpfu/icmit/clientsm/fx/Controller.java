@@ -83,7 +83,7 @@ public class Controller {
         comboBoxDst.getItems().add(new Abonent(2,"User2"));
         comboBoxDst.getItems().add(new Abonent(3,"User3"));
 
-        System.out.println("Button buttonLogin pressed. Login is "+textFieldLogin.getText());
+        System.out.println("Button buttonLogin pressed. Login is "+textFieldLogin.getText()+passwordField.getText());
     }
 
     @FXML

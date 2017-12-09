@@ -1,34 +1,26 @@
-package ru.kpfu.icmit.serversm;
+package ru.kpfu.icmit.clientsm;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Класс предназначен для чтения http пакета
- *
+ * Класс для чтения ответа сервера
  */
-public class HTTPReader {
+public class ResponseReader {
 
-	/**
-	 * Метод читает из входного потока сокета (is) данные построчно.
-	 * Использовать метод readHeadersNextString, который считывает
-	 * очередную порцию данных из потока до достижения символов \r\n конца строки.
-	 *
-	 * Метод должен вернуть список из строк
-	 */
-	public static ArrayList<String> readHTTPHeader(InputStream is) throws Throwable {
-		ArrayList<String> result = new ArrayList<>();
-		while(true) {
-			String s = readHeadersNextString(is);
-			if(s == null || s.trim().length() == 0) {
-				break;
-			}
-			result.add(s);
-			System.out.println(s);
+	/** Метод читает из входного потока сокета (is) данные построчно. */
+	public ServerResponse read(InputStream is) {
+
+		// Прием ответа
+		// Считываем из потока сообщение в виде массива байт
+		byte[] response_msg = new byte[1024];
+		try {
+			int r = is.read(response_msg);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		return result;
+		System.out.println("Ответ от сервера " + new String(response_msg));
+		return null;
 	}
 
 	/**
@@ -37,17 +29,14 @@ public class HTTPReader {
 	 * Т.е. последующий набор данных в потоке относится к телу запроса (если оно должно быть)
 	 */
 	public static String readHTTPBody(InputStream is, int bodySize) {
+		//TODO необходимо реализовать
 		byte[] msg = new byte[bodySize];
-		try {
-			is.read(msg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		String msg_as_text = new String(msg);
 
 		System.out.println("data from client: "+msg_as_text);
+
 		return msg_as_text;
-    }
+	}
 
 	/**
 	 * Метод читает очередную строку из потока, конец строки - обязательно комбинация \r\n
@@ -96,5 +85,4 @@ public class HTTPReader {
 			}
 		}
 	}
-
 }
