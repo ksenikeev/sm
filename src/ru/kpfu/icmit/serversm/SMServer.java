@@ -1,5 +1,8 @@
 package ru.kpfu.icmit.serversm;
 
+import ru.kpfu.icmit.serversm.login.Login;
+import ru.kpfu.icmit.serversm.registration.Registration;
+import ru.kpfu.icmit.serversm.registration.RegistrationResp;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -52,12 +55,23 @@ public class SMServer extends Thread{
 
 				// Смотрим какой ресурс запросил клиент (из httpClientHeader.resourcePath)
 				if (httpClientHeader.resourcePath.equals("/reguser")){
-					//TODO реализовать обработку регистрации
-					ResponseServer.send(os,"");
+					// Процедура регистрации нового пользователя
+					// Enikeev
+					System.out.println("Request /reguser");
+					RegistrationResp r = Registration.makeRegistration(bodyMessage);
+					System.out.println(r.status+" "+r.token+" "+r.description);
+					if (r.status)
+						ResponseServer.send(os,"{\"token\":\""+r.token+"\",\"status\":\"success\"}");
+					else
+						ResponseServer.send(os,"{\"status\":\"error\",\"description\":\""+r.description+"\"}");
 				} else if (httpClientHeader.resourcePath.equals("/login")){
+					// Процедура аутентификации пользователя
 					System.out.println(httpClientHeader.resourcePath);
-					//TODO реализовать обработку аутентификации
-					ResponseServer.send(os,"");
+					String token = Login.get(bodyMessage,os);
+					if (token!=null)
+						ResponseServer.send(os,"{\"token\":\""+token+"\",\"status\":\"success\"}");
+					else
+						ResponseServer.send(os,"{\"status\":\"error\",\"description\":\"Autentification error!\"}");
 				} else if (httpClientHeader.resourcePath.equals("/sendmsg")){
 					//TODO реализовать отправку сообщения
 					ResponseServer.send(os,"");
@@ -94,13 +108,6 @@ public class SMServer extends Thread{
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-/*
-		try {
-			s.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-*/
 		System.out.println("socket close: "+new Date() +" ThreadId: " + currentThread().getId());
     }
 }

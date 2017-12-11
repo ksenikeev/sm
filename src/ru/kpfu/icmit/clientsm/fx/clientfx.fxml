@@ -42,6 +42,6 @@
       <Label id="labelMessage" fx:id="labelMessage" prefHeight="32.0" prefWidth="461.0" text="Введите логин и пароль" GridPane.columnIndex="2" GridPane.columnSpan="3" />
       <ComboBox id="comboBoxDst" fx:id="comboBoxDst" prefHeight="31.0" prefWidth="469.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="6" />
       <Label text="Получатель" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-      <Hyperlink onAction="#registgration" text="Регистрация" GridPane.columnIndex="4" />
+      <Hyperlink onAction="#registgration" fx:id="hyperReg" text="Регистрация" GridPane.columnIndex="4" />
    </children>
 </GridPane>

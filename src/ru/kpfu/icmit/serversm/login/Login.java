@@ -1,4 +1,4 @@
-package ru.kpfu.icmit.serversm;
+package ru.kpfu.icmit.serversm.login;
 
 import com.google.gson.Gson;
 import ru.kpfu.icmit.serversm.DbWork;
@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Класс отрабатывает аутентификацию пользователя
+ * @autor Осипова Created by kriso on 05.12.2017.
+ */
 public class Login {
     public static String get(String message, OutputStream os){
         Gson gson = new Gson();

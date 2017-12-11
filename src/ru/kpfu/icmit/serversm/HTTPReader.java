@@ -22,11 +22,11 @@ public class HTTPReader {
 		ArrayList<String> result = new ArrayList<>();
 		while(true) {
 			String s = readHeadersNextString(is);
+			System.out.println(s);
 			if(s == null || s.trim().length() == 0) {
 				break;
 			}
 			result.add(s);
-			System.out.println(s);
 		}
 		return result;
 	}
@@ -58,7 +58,7 @@ public class HTTPReader {
 		boolean therIsCR=false;
 		byte[] buf = new byte[1024];
 		int n = 0;
-		int r = 0;
+		int r;
 		while(true){
 			if(n<1024){
 				// Читаем очередной байт

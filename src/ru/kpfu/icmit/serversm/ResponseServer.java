@@ -17,7 +17,7 @@ public class ResponseServer {
                 "Server: ICMIT/0.0.1"+"\r\n";
         if (message.length()>0){
             msg=msg+"Content-Type: application/json"+"\r\n"+
-                    "Content-Lenght: "+ message.getBytes().length+"\r\n"+
+                    "Content-Length: "+ message.getBytes().length+"\r\n"+
                     "\r\n"+
                     message;
         } else{

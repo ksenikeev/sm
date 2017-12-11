@@ -1,6 +1,7 @@
-package ru.kpfu.icmit.serversm;
+package ru.kpfu.icmit.serversm.newmessage;
 
 import com.google.gson.Gson;
+import ru.kpfu.icmit.serversm.DbWork;
 
 import java.io.OutputStream;
 import java.sql.Connection;

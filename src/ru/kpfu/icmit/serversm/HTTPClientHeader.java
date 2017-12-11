@@ -15,7 +15,8 @@ import java.util.List;
  POST /reguser HTTP/1.1
  Host: 127.0.0.1:3128
  Content-Type: application/json
- Content-Lenght: 52
+ Content-Length: 52
+
  */
 public class HTTPClientHeader {
 
@@ -31,6 +32,7 @@ public class HTTPClientHeader {
 	/**
 	 * Метод парсит HTTP заголовок, переданный в аргумент как список строк.
 	 * Заполняются члены класса, если в заголовке находится соответствующий ключ.
+	 * @author Иванов
 	 */
 	public static HTTPClientHeader parseHTTPHeader(ArrayList<String> httpHeader){
 		HTTPClientHeader httpClientHeader = new HTTPClientHeader();

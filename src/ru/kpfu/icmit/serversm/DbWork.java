@@ -1,8 +1,14 @@
 package ru.kpfu.icmit.serversm;
 import java.sql.*;
 import java.sql.Connection;
-import  java.sql.SQLException;
+import java.sql.SQLException;
 
+/**
+ * Класс реализует создание подключения к БД.
+ *
+ * Запуск метода main генерирует базу данных sm мессенджера, располагающуюся в домашней директории пользователя
+ * @author Нафиков
+ */
 public class DbWork {
     public static Connection connection;
 
@@ -26,6 +32,8 @@ public class DbWork {
 
 
     }
+
+
     public static  void createDB(){
         try {
             initDb();

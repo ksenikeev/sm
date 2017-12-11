@@ -56,8 +56,7 @@ public class HTTPSender {
                 int size = msg_bytes.length;
                 int messagesize = 0;
 
-                String hdr = null;
-                String hrd = "POST /" + requestPath + " HTTP/1.1\r\n" +
+                String hdr = "POST " + requestPath + " HTTP/1.1\r\n" +
                         "Host: " + serverAddress + ":" + serverPort + "\r\n" +
                         "Content-Type: application/json" + "\r\n";
 
@@ -70,11 +69,15 @@ public class HTTPSender {
                     hdr = hdr + "\r\n";
                 }
 
+                System.out.println(hdr);
+
                 //Отправляем на сервер само сообщение
                 os.write(hdr.getBytes());
 
                 ResponseReader rr = new ResponseReader();
                 result = rr.read(is);
+
+
             }
         } catch (UnknownHostException e) {
             System.out.println("Неизвестный адрес!");;
