@@ -1,7 +1,6 @@
 package ru.kpfu.icmit.clientsm;
 
-import java.util.*;
-import java.text.*;
+import com.google.gson.Gson;
 
 /**
  * Класс, моделирующий JSON объект-сообщение
@@ -31,21 +30,11 @@ public class ClientMessage {
         } else
             return null;
     }
-    public static void main(String args[]) {
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
-        String str = args.length == 0 ? "yyyy-MM-dd HH:mm:ss" : args[0];
-        Date parsingDate;
-        try {
-            parsingDate = ft.parse(str);
-            System.out.println(parsingDate);
-        }catch (ParseException e) {
-            System.out.println("datemsg: " + str);
-        }
-    }
-   public static String JSON2cm (ClientMessage JSON) {
+
+   public static ClientMessage JSON2cm (String jSON) {
         	Gson cm = new Gson ();
         	
-			ClientMessage result = cm.fromJson (resp.content, ClientMessage.class);
-        	return result.usrList;
+			ClientMessage result = cm.fromJson(jSON, ClientMessage.class);
+        	return result;
         }
 }

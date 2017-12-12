@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ru.kpfu.icmit.clientsm.Messages;
+import ru.kpfu.icmit.clientsm.StoreMessages;
 
 public class MainClientFx extends Application {
 
@@ -18,9 +20,9 @@ public class MainClientFx extends Application {
     }
 
     @Override
-    public void stop(){
-        System.out.println("stop");
-    }
+    public void stop () {
+        StoreMessages.writeMessages(Messages.messages, "history.joc");
 
+    }
     public static void main(String[] args) { launch(args); }
 }

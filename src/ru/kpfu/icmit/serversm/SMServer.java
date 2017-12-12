@@ -1,6 +1,7 @@
 package ru.kpfu.icmit.serversm;
 
 import ru.kpfu.icmit.serversm.login.Login;
+import ru.kpfu.icmit.serversm.newmessage.GetNemMessage;
 import ru.kpfu.icmit.serversm.registration.Registration;
 import ru.kpfu.icmit.serversm.registration.RegistrationResp;
 import java.io.IOException;
@@ -73,11 +74,13 @@ public class SMServer extends Thread{
 					else
 						ResponseServer.send(os,"{\"status\":\"error\",\"description\":\"Autentification error!\"}");
 				} else if (httpClientHeader.resourcePath.equals("/sendmsg")){
+
 					//TODO реализовать отправку сообщения
 					ResponseServer.send(os,"");
 				} else if (httpClientHeader.resourcePath.equals("/getnewmsg")){
+					String msgs = GetNemMessage.get(bodyMessage,os);
 					//TODO реализовать отправку новых сообщений
-					ResponseServer.send(os,"");
+					ResponseServer.send(os,msgs);
 				} else if (httpClientHeader.resourcePath.equals("/getallmsg")){
 					//TODO реализовать отправку всех сообщений
 					ResponseServer.send(os,"");

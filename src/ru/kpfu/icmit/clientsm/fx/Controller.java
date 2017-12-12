@@ -77,6 +77,7 @@ public class Controller {
         buttonNewMessages.setDisable(true);
         buttonSend.setDisable(true);
 
+
         System.out.println("Initialze is complete!");
     }
 
