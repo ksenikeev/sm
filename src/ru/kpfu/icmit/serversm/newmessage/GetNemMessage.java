@@ -36,11 +36,13 @@ public class GetNemMessage {
             result = "{\"msglist\":[";
             while (rs.next()) {
                 result += "{\"from\":\""+rs.getString("fromuser");
-                result += "{\"content\":\""+rs.getString("content text");
+                result += "{\"content\":\""+rs.getString("content");
                 result += "{\"date\":\""+rs.getString("datemsg");
                 System.out.println(rs.getString("login") + "-" + rs.getString("password"));
             }
             result += "]}";
+            st.execute(
+                    "update messenges set readed = 'true'");
         } catch (SQLException e) {
             e.printStackTrace();
         }
