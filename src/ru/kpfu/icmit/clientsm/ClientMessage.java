@@ -42,4 +42,10 @@ public class ClientMessage {
             System.out.println("datemsg: " + str);
         }
     }
+   public static String JSON2cm (ClientMessage JSON) {
+        	Gson cm = new Gson ();
+        	
+			ClientMessage result = cm.fromJson (resp.content, ClientMessage.class);
+        	return result.usrList;
+        }
 }
