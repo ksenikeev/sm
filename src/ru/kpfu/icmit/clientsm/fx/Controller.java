@@ -19,6 +19,8 @@ public class Controller {
     @FXML
     Label labelMessage;
     @FXML
+    Label labelStatus;
+    @FXML
     TextField textFieldLogin;
 
     @FXML
@@ -88,6 +90,7 @@ public class Controller {
             //Действия связанные с авторизацией
             resp = Registration.sendRegInfo(textFieldLogin.getText(),passwordField.getText());
             if (resp.responseCode!=200){
+                labelStatus.setText("Ошибка регистрации !"+resp.responseDescription);
                 System.out.println("Registration (http) error: "+resp.responseDescription);
                 return;
             }
@@ -127,6 +130,7 @@ public class Controller {
         ltmp.setStyle("-fx-background-color: Lime;");
         ltmp.setText("Сообщение "+(i++));
         content.getChildren().add(0,ltmp);
+
         System.out.println("Button buttonNewMesage pressed");
     }
 

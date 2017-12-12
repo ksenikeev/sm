@@ -31,6 +31,7 @@ public class Registration {
         HTTPSender sender = new HTTPSender("127.0.0.1", "3128");
         ServerResponse resp = sender.sendMessage(message, "/getusers");
         if (resp.responseCode!=200) return null;
+
         Gson gson = new Gson();
         Abonents result = gson.fromJson(resp.content, Abonents.class);
         return result.usrlist;

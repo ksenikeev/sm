@@ -13,7 +13,6 @@ public class ResponseServer {
         String msg="HTTP/1.1 200 OK"+"\r\n"+
                 "Connection: close"+"\r\n"+
                 "Date: "+new Date()+"\r\n"+
-                "Access-Control-Allow-Origin: *\r\n"+
                 "Server: ICMIT/0.0.1"+"\r\n";
         if (message.length()>0){
             msg=msg+"Content-Type: application/json"+"\r\n"+

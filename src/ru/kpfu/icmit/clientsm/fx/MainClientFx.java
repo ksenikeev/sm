@@ -14,6 +14,12 @@ public class MainClientFx extends Application {
         primaryStage.setTitle("ICMIT messenger");
         primaryStage.setScene(new Scene(root, 510, 425));
         primaryStage.show();
+        //primaryStage.onCloseRequestProperty();
+    }
+
+    @Override
+    public void stop(){
+        System.out.println("stop");
     }
 
     public static void main(String[] args) { launch(args); }
