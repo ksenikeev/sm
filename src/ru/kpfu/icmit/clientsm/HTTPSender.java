@@ -102,7 +102,27 @@ public class HTTPSender {
     /** Метод для запроса новых сообщений с сервера */
     public List<ClientMessage> getMessages(String message, String requestPath){
         //TODO реализовать
-        return null;
+    public List<ClientMessage> getMessages(String token){
+            //TODO реализовать
+         String msg = "{\"token\": \""+ token + "\"}";
+         String requestPath = "/getnewmsg";
+      
+         ServerResponse sr =
+         sendMessage (msg, requestPath);
+      String content = sr.content;
+      List<ClientMessage> ls = new ArrayList <ClientMessage>();
+      
+      public List<ClientMessage> getClientMessе(String content) { 
+
+    	  class PClientMessage { 
+    	  ArrayList<ClientMessage> msglist; 
+    	  } 
+
+    	  Gson gson = new Gson(); 
+    	  PClientMessage pcm = gson.fromJson(content, PClientMessage.class); 
+
+    	  return pcm.msglist; 
+    	  
     }
 
     /**
