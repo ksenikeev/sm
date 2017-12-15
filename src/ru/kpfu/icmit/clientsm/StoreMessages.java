@@ -17,13 +17,27 @@ import com.google.gson.Gson;
  */
 public class StoreMessages {
 
-    /** Метод для чтения сохраненных сообщений из файла */
-    public static List<ClientMessage> readMessages(String fileName){
-        //TODO реализовать
-        return null;
-    }
+/** Метод для чтения сохраненных сообщений из файла */
+public static List<ClientMessage> readMessages(String fileName){
+Gson gson = new Gson();
+try (FileReader reader=new FileReader(fileName)){
 
-    /**
+for (ClientMessage cm : msgs) {
+String msg = gson.toJson(cm);
+reader.read();
+
+}
+} catch (FileNotFoundException e) {
+// TODO Auto-generated catch block
+e.printStackTrace();
+} catch (IOException e) {
+// TODO Auto-generated catch block
+e.printStackTrace();
+}
+
+return null;
+}
+ /**
      * Метод для записи сообщений в файл (архивирование при завершении программы)
      * @autor Габутдинова
      *
