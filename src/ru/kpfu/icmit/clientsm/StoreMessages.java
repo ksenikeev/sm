@@ -20,26 +20,24 @@ import com.google.gson.Gson;
  */
 public class StoreMessages {
 
-    /**
-     * Метод для чтения сохраненных сообщений из файла
-     * @autor Sharafullova
-     */
-    public static List<ClientMessage> readMessages(String fileName) {
-        Gson gson = new Gson();
-        try (FileReader reader = new FileReader(fileName)) {
+   /** Метод для чтения сохраненных сообщений из файла */
+public static List<ClientMessage> readMessages(String fileName){
+Gson gson = new Gson();
+List<ClientMessage> cml= new ArrayList<ClientMessage>();
 
-//            for (ClientMessage cm : msgs) {
-//                String msg = gson.toJson(cm);
-//                reader.read();
-//            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+try (BufferedReader reader = new BufferedReader(
+        new InputStreamReader(
+                new FileInputStream(fileName), StandardCharsets.UTF_8))){
+    String line;
+    while ((line = reader.readLine()) != null) {
+    	cml.add(gson.fromJson(line, ClientMessage.class));
+        System.out.println(line);
     }
-
+} catch (IOException e) {
+    // log error
+}
+return cml;
+}
     /**
      * Метод для записи сообщений в файл (архивирование при завершении программы
      * @autor Габутдинова
