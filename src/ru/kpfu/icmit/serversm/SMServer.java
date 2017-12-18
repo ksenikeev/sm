@@ -53,8 +53,8 @@ public class SMServer extends Thread{
 				}
 
 				// !!!! ОБРАБОТКА ЗАПРОСА КЛИЕНТА !!!
-
 				// Смотрим какой ресурс запросил клиент (из httpClientHeader.resourcePath)
+				// Ветка, обрабатывающая запрос на регистрацию пользователя
 				if (httpClientHeader.resourcePath.equals("/reguser")){
 					// Процедура регистрации нового пользователя
 					// Enikeev
@@ -65,7 +65,9 @@ public class SMServer extends Thread{
 						ResponseServer.send(os,"{\"token\":\""+r.token+"\",\"status\":\"success\"}");
 					else
 						ResponseServer.send(os,"{\"status\":\"error\",\"description\":\""+r.description+"\"}");
-				} else if (httpClientHeader.resourcePath.equals("/login")){
+				} else
+				//Ветка, обрабатывающая запрос на аутентификацию
+				if (httpClientHeader.resourcePath.equals("/login")){
 					// Процедура аутентификации пользователя
 					System.out.println(httpClientHeader.resourcePath);
 					String token = Login.get(bodyMessage,os);
@@ -73,18 +75,26 @@ public class SMServer extends Thread{
 						ResponseServer.send(os,"{\"token\":\""+token+"\",\"status\":\"success\"}");
 					else
 						ResponseServer.send(os,"{\"status\":\"error\",\"description\":\"Autentification error!\"}");
-				} else if (httpClientHeader.resourcePath.equals("/sendmsg")){
+				} else
+				// Ветка, обрабатывающая запрос на отправку сообщения
+				if (httpClientHeader.resourcePath.equals("/sendmsg")){
 
 					//TODO реализовать отправку сообщения
 					ResponseServer.send(os,"");
-				} else if (httpClientHeader.resourcePath.equals("/getnewmsg")){
-					String msgs = GetNemMessage.get(bodyMessage,os);
+				} else
+				// Ветка, обрабатывающая запрос на получение новых сообщений
+				if (httpClientHeader.resourcePath.equals("/getnewmsg")){
+					String msgs = GetNemMessage.get(bodyMessage);
 					//TODO реализовать отправку новых сообщений
 					ResponseServer.send(os,msgs);
-				} else if (httpClientHeader.resourcePath.equals("/getallmsg")){
+				} else
+				// Ветка, обрабатывающая запрос на получение всех сообщений пользователя
+				if (httpClientHeader.resourcePath.equals("/getallmsg")){
 					//TODO реализовать отправку всех сообщений
 					ResponseServer.send(os,"");
-				} else if (httpClientHeader.resourcePath.equals("/getusers")){
+				} else
+				//Ветка, обрабатывающая запрос на получение списка пользователей
+				if (httpClientHeader.resourcePath.equals("/getusers")){
 					//TODO реализовать отправку всех пользователей
 					ResponseServer.send(os,"");
 				} else {

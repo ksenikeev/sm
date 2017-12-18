@@ -26,7 +26,7 @@ public class Login {
         try {
             st = DbWork.initDb().createStatement();
             ResultSet rs = st.executeQuery(
-                    "'select * from users where username 'param_username' + 'and login='"+login+"' and password='"+password+"'");
+                    "select * from users where login='"+login+"' and password='"+password+"'");
             if(rs.next()) {
                 String user_id = rs.getString("id");
                 UUID token = UUID.randomUUID();

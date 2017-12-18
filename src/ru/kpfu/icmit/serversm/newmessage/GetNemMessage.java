@@ -17,7 +17,7 @@ import java.util.Map;
 
  */
 public class GetNemMessage {
-    public static String get(String message, OutputStream os){
+    public static String get(String message){
         Gson gson = new Gson();
         Map<String,String> map = new HashMap<>();
         map = gson.fromJson(message, map.getClass());
@@ -36,14 +36,14 @@ public class GetNemMessage {
             ResultSet rs1 = st.executeQuery(
                     "select * from messages where touser = "+user_id+" and readed = false");
             result = "{\"msglist\":[";
-            while (rs.next()) {
+            while (rs1.next()) {
                 result += "{\"from\":\""+rs.getString("fromuser");
                 result += "{\"content\":\""+rs.getString("content");
                 result += "{\"date\":\""+rs.getString("datemsg");
             }
             result += "]}";
             st.execute(
-                    "update messenges set readed = 'true'");
+                    "update messages set readed = 'true'");
         } catch (SQLException e) {
             e.printStackTrace();
         }

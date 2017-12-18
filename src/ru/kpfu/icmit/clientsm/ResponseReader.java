@@ -10,17 +10,16 @@ import java.util.ArrayList;
  */
 public class ResponseReader {
 
+	// Считываем ответ сервера из входного потока (сокета)
 	public ServerResponse read(InputStream is) {
 		ArrayList<String> q = null;
 		try {
 			q = readHTTPHeader(is);
-
 		} catch (Throwable e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ServerResponse s = ServerResponse.parse(q);
-
+		// Если есть тело с данными - считываем их в объеме contentLength байт
 		if (s.contentLength>0){
 			s.content = readHTTPBody(is,s.contentLength);
 		}

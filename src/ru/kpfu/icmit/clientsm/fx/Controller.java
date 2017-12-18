@@ -4,69 +4,58 @@ import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import ru.kpfu.icmit.clientsm.Abonent;
-import ru.kpfu.icmit.clientsm.Registration;
-import ru.kpfu.icmit.clientsm.ServerResponse;
+import ru.kpfu.icmit.clientsm.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Класс-контроллер реализует поведение элементов, описанных в clientfx.fxml
  */
 public class Controller {
 
-    /* Объявляем типы и имена полей, соответвующие описанию в clientfx.fxml */
+    /* Объявляем типы и имена полей, соответвующие графическим элементам (кнопкам, тектовым полям, ...) и их
+        описанию в clientfx.fxml
+        аннотация @FXML позволяет установить соответствие между переменной и ее описанием в clientfx.fxml
+    */
     @FXML
     Label labelMessage;
     @FXML
     Label labelStatus;
     @FXML
     TextField textFieldLogin;
-
     @FXML
     PasswordField passwordField;
-
     @FXML
     Button buttonLogin;
-
     @FXML
     Button buttonNewMessages;
-
     @FXML
     ScrollPane scrollPanelNews;
-
     @FXML
     ComboBox comboBoxDst;
-
     @FXML
     TextArea textAreaMessage;
-
     @FXML
     Button buttonSend;
-
     @FXML
     Hyperlink hyperReg;
 
+    // Состояние кнопки buttonLogin
     private boolean btnStatusLogin = true;
-
+    // Токен для идентификации пользователя при общении с сервером (128 битное число в строковом представлении)
     public String token;
-
-    /* Дополнительные члены класса, необходимые в работе */
+    private HTTPSender httpSender;
 
     //Id клиента, который нам присвоен в БД, должен возвращаться сервером в случае успешной аутентификации
-    private int selfId;
     VBox content;
+    // Список абонентов
+    private ArrayList<Abonent> abns;
 
-    int i=0;
-
-    /*  */
-    public Controller(){
-        System.out.println("Constructor of class Controller is complete!");
-    }
-
-    /**
+     /**
      *  Метод initialize() вызывается автоматически после загрузки макета и инициализации элементов
-     *  Создаем контейнер VBox для отображения сообщений
+     *  Создаем элемент графического интерфейса - контейнер VBox для отображения сообщений
      *  блокируем кнопки (до момента успешной аутентификации)
     */
     @FXML
@@ -76,38 +65,45 @@ public class Controller {
 
         buttonNewMessages.setDisable(true);
         buttonSend.setDisable(true);
-
-
+        // Инициализируем класс для отправки данных
+        httpSender = new HTTPSender("127.0.0.1", "3128");
         System.out.println("Initialze is complete!");
     }
 
-    //TODO - реализовать полный функционал
+    /**
+     * Аутентификация абонента
+     * @autor Bikusheva
+     */
     @FXML
     public void login(){
         ServerResponse resp=null;
         if (btnStatusLogin){
-            //Действия связанные с аутентификацией
+            //аутентификация
+            resp = httpSender.sendLoginInfo(textFieldLogin.getText(),passwordField.getText());
         } else {
-            //Действия связанные с авторизацией
-            resp = Registration.sendRegInfo(textFieldLogin.getText(),passwordField.getText());
-            if (resp.responseCode!=200){
-                labelStatus.setText("Ошибка регистрации !"+resp.responseDescription);
-                System.out.println("Registration (http) error: "+resp.responseDescription);
-                return;
-            }
-            Gson gson = new Gson();
-            Token t = gson.fromJson(resp.content,Token.class);
-            if (t.status.equals("success")){
-                token = t.token;
-                System.out.println("Registration success, token = "+token);
-            } else{
-                System.out.println("Registration error: "+t.description);
-                return;
-            }
+            //регистрация
+            resp = httpSender.sendRegistration(textFieldLogin.getText(), passwordField.getText());
+        }
+        // Если от сервера пришла ошибка
+        if (resp.responseCode!=200){
+            labelStatus.setText("Ошибка аутентификации (регистрации)  !"+resp.responseDescription);
+            System.out.println("Login (Registration) (http) error: "+resp.responseDescription);
+            //покидаем метод
+            return;
+        }
+        // При положительном ответе сервер должен вернуть токен для дальнейшего общения с ним
+        // в JSON объекте в resp.content
+        Gson gson = new Gson();
+        Token t = gson.fromJson(resp.content,Token.class);
+        if (t.status.equals("success")){
+            token = t.token;
+            System.out.println("Login/Registration success, token = "+token);
+        } else{
+            System.out.println("Login/Registration error: "+t.description);
+            return;
         }
 
-        ArrayList<Abonent> abn = Registration.getAbonentList(token);
-
+        // Меняем состояние элементов интерфейса
         labelMessage.setVisible(false);
         textFieldLogin.setVisible(false);
         passwordField.setVisible(false);
@@ -116,33 +112,39 @@ public class Controller {
         buttonNewMessages.setDisable(false);
         buttonSend.setDisable(false);
 
-        comboBoxDst.getItems().add(new Abonent(1,"User1"));
-        comboBoxDst.getItems().add(new Abonent(2,"User2"));
-        comboBoxDst.getItems().add(new Abonent(3,"User3"));
-
-        System.out.println("Button buttonLogin pressed. Login is "+textFieldLogin.getText()+passwordField.getText());
+        // После успешной аутентификации или логина запрашиваем список абонентов
+        abns = httpSender.getAbonentList(token);
+        for (Abonent a: abns) {
+            comboBoxDst.getItems().add(a);
+        }
     }
 
+    // Запрос новых сообщений
     @FXML
     public void getNewMessage(){
+        List<ClientMessage> cml = httpSender.getMessages(token);
 
-        // Пример добавления "полученного" сообщения в область просмотра сообщений
-        Label ltmp = new Label();
-        ltmp.setStyle("-fx-background-color: Lime;");
-        ltmp.setText("Сообщение "+(i++));
-        content.getChildren().add(0,ltmp);
-
+        // Добавление сообщения в область просмотра сообщений
+        for( ClientMessage cm : cml) {
+            Label ltmp = new Label();
+            ltmp.setStyle("-fx-background-color: Lime;");
+            ltmp.setText(cm.datemsg+", "+
+                    cm.from.name+": " + cm.content);
+            content.getChildren().add(0, ltmp);
+            Messages.messages.add(cm);
+        }
         System.out.println("Button buttonNewMesage pressed");
     }
 
+    // Отправка сообщения
     @FXML
     public void sendMessage(){
-        System.out.println("Button sendMessage pressed "+textAreaMessage.getText());
         // Пример добавления "отправленного" сообщения в область просмотра сообщений
         Label ltmp = new Label();
         ltmp.setStyle("-fx-background-color: Cyan;");
         ltmp.setText(textAreaMessage.getText());
         content.getChildren().add(0,ltmp);
+        comboBoxDst.getValue();
     }
 
     /**

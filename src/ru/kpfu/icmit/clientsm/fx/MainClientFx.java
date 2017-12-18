@@ -12,11 +12,12 @@ public class MainClientFx extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("clientfx.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResource("clientfx.fxml"));
         primaryStage.setTitle("ICMIT messenger");
         primaryStage.setScene(new Scene(root, 510, 425));
         primaryStage.show();
-        //primaryStage.onCloseRequestProperty();
+        //loader.getController();
     }
 
     @Override

@@ -44,7 +44,8 @@ public class ServerResponse {
             }
         }
         sr.contentType=response.get("CONTENT-TYPE");
-        sr.contentLength=Integer.valueOf(response.get("CONTENT-LENGTH"));
+        if (response.get("CONTENT-LENGTH")!=null && response.get("CONTENT-LENGTH").length()>0)
+            sr.contentLength=Integer.valueOf(response.get("CONTENT-LENGTH"));
         return sr;
     }
 
