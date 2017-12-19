@@ -23,7 +23,7 @@ public class UserList
                 while(rs.next()){
                     result += "{\"id\":\"" + rs.getString("id") + "\", \"name\":\"" + rs.getString("username") + "\"},";
                 }
-                result = result.substring(0,result.length()-2);
+                result = result.substring(0,result.length()-1);
                 result += "]}";
                 System.out.println(result);
             }
