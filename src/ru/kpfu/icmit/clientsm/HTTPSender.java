@@ -101,10 +101,14 @@ public class HTTPSender {
             System.out.println("getMessages: Error server response!");
             return null;
         }
-        String content = sr.content;
-        Gson gson = new Gson();
-        PClientMessage pcm = gson.fromJson(content, PClientMessage.class);
-        return pcm.msglist;
+        if(sr.content!=null && !sr.content.trim().equals("")) {
+            String content = sr.content;
+            Gson gson = new Gson();
+            PClientMessage pcm = gson.fromJson(content, PClientMessage.class);
+            return pcm.msglist;
+        } else {
+            return null;
+        }
     }
 
     /** Модель JSON объекта, содержащего массив сообщений {"msglist":[сообщение1,...,сообщениеN]}

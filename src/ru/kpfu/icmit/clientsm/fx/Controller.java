@@ -125,6 +125,7 @@ public class Controller {
         List<ClientMessage> cml = httpSender.getMessages(token);
 
         // Добавление сообщения в область просмотра сообщений
+        if (cml!=null)
         for( ClientMessage cm : cml) {
             Label ltmp = new Label();
             ltmp.setStyle("-fx-background-color: Lime;");
@@ -145,7 +146,8 @@ public class Controller {
         ltmp.setStyle("-fx-background-color: Cyan;");
         ltmp.setText(textAreaMessage.getText());
         content.getChildren().add(0,ltmp);
-        String message ="{\"token\":\""+token+"\",\"abonent\":\""+comboBoxDst.getValue()+"\",\"content\":\""+textAreaMessage.getText()+"\"}";
+        String message ="{\"token\":\""+token+"\",\"abonent\":\""+
+                ((Abonent)comboBoxDst.getValue()).id+"\",\"content\":\""+textAreaMessage.getText()+"\"}";
         System.out.println(message);
         httpSender.sendMessage(message, "/sendmsg");
     }

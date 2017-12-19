@@ -21,13 +21,14 @@ public class SenderMessage {
         try {
             st = DbWork.initDb().createStatement();
             ResultSet rs = st.executeQuery(
-                    "select id from users where sean_id='"+n.token+"'");
+                    "select id from users where seans_id='"+n.token+"'");
             String user_id="0";
             if (rs.next()) {
                 user_id = rs.getString("id");
             }
+            System.out.println("Message from: "+user_id);
             st = DbWork.initDb().createStatement();
-            st.execute("insert into messages (fromuser, touser,content,datamsg) values (" +user_id+","+n.abonent+",'"+
+            st.execute("insert into messages (fromuser, touser,content,datemsg) values (" +user_id+","+n.abonent+",'"+
                     n.content+"','"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+"')");
             return true;
         } catch (SQLException e) {
