@@ -32,12 +32,12 @@ public class Login {
                 UUID token = UUID.randomUUID();
                 st.execute("update users set seans_id='" + token +"' where id ='"
                         +user_id+ "'");
-                result = "{\"token\":\""+token+"\",\"status\":\"success\"}";
+                result = token+"";
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        System.out.println("Login: "+result);
         return result;
     }
 }

@@ -21,7 +21,7 @@ public class UserList
                 rs = st.executeQuery("select * from users");
                 result = "{\"usrlist\":[";
                 while(rs.next()){
-                    result += "{\"id\":\"" + rs.getString("id") + "\", \"name\":\"" + rs.getString("name") + "\"},";
+                    result += "{\"id\":\"" + rs.getString("id") + "\", \"name\":\"" + rs.getString("username") + "\"},";
                 }
                 result = result.substring(0,result.length()-2);
                 result += "]}";
