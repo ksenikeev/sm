@@ -32,5 +32,5 @@ CREATE TABLE if not exists messages
 );
 
 -- создаем двух пользователей для тестирования
-insert into users (username, login, password) values ('User1', 'user1', 'user1');
+insert into users (, login, password) values ('User1', 'user1', 'user1');
 insert into users (username, login, password) values ('User2', 'user2', 'user2');

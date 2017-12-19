@@ -35,10 +35,11 @@ public class GetNemMessage {
             st.close();
             st = DbWork.initDb().createStatement();
             ResultSet rs1 = st.executeQuery(
-                    "select * from messages where touser = "+user_id+" and readed = false");
+                    "select * from messages  join users on fromuser = users.id where touser = "+user_id+" and readed = false");
 
             while (rs1.next()) {
                 result += "{\"from\":\""+rs1.getString("fromuser")+"\"";
+                
                 result += ",\"content\":\""+rs1.getString("content")+"\"";
                 result += ",\"date\":\""+rs1.getString("datemsg")+"\"},";
             }
