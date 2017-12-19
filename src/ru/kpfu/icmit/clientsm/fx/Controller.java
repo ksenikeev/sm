@@ -137,6 +137,7 @@ public class Controller {
     }
 
     // Отправка сообщения
+    // @autor Svechnikova
     @FXML
     public void sendMessage(){
         // Пример добавления "отправленного" сообщения в область просмотра сообщений
@@ -144,7 +145,9 @@ public class Controller {
         ltmp.setStyle("-fx-background-color: Cyan;");
         ltmp.setText(textAreaMessage.getText());
         content.getChildren().add(0,ltmp);
-        comboBoxDst.getValue();
+        String message ="{\"token\":\""+token+"\",\"abonent\":\""+comboBoxDst.getValue()+"\",\"content\":\""+textAreaMessage.getText()+"\"}";
+        System.out.println(message);
+        httpSender.sendMessage(message, "/sendmsg");
     }
 
     /**
@@ -162,6 +165,8 @@ public class Controller {
         btnStatusLogin = !btnStatusLogin;
         System.out.println("Hiperlink registgration pressed");
     }
+
+
 
     class Token {
         String status;

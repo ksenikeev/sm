@@ -79,13 +79,12 @@ public class SMServer extends Thread{
 				// Ветка, обрабатывающая запрос на отправку сообщения
 				if (httpClientHeader.resourcePath.equals("/sendmsg")){
 
-					//TODO реализовать отправку сообщения
+					SenderMessage.sendMsg(bodyMessage);
 					ResponseServer.send(os,"");
 				} else
 				// Ветка, обрабатывающая запрос на получение новых сообщений
 				if (httpClientHeader.resourcePath.equals("/getnewmsg")){
 					String msgs = GetNemMessage.get(bodyMessage);
-					//TODO реализовать отправку новых сообщений
 					ResponseServer.send(os,msgs);
 				} else
 				// Ветка, обрабатывающая запрос на получение всех сообщений пользователя
@@ -95,8 +94,9 @@ public class SMServer extends Thread{
 				} else
 				//Ветка, обрабатывающая запрос на получение списка пользователей
 				if (httpClientHeader.resourcePath.equals("/getusers")){
-					//TODO реализовать отправку всех пользователей
-					ResponseServer.send(os,"");
+
+					String msg = UserList.get(bodyMessage);
+					ResponseServer.send(os,msg);
 				} else {
 					//Если запрошен неизвестный ресурс возвращаем ошибку
 					String data ="HTTP/1.1 404 Resource Not Found\r\n"+
