@@ -38,8 +38,14 @@ public class GetNemMessage {
                     "select * from messages  join users on fromuser = users.id where touser = "+user_id+" and readed = false");
 
             while (rs1.next()) {
+                /* TODO в соответствии с изменениями в документации необходимо правильно сформировать
+                    JSON объект по образцу
+                    {"msglist":[сообщение1,...,сообщениеN]}
+                    сообщение - объект по образцу
+                    {"from":{"id":"код_отправителя", "name":"имя_отправителя"}, "content":"текст_сообщения", "date":"дата"}
+                */
                 result += "{\"from\":\""+rs1.getString("fromuser")+"\"";
-                
+                // получение имени отправителя rs1.getString("username")
                 result += ",\"content\":\""+rs1.getString("content")+"\"";
                 result += ",\"date\":\""+rs1.getString("datemsg")+"\"},";
             }
